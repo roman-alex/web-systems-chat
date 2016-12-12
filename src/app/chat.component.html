@@ -1,0 +1,61 @@
+<span class="loading" *ngIf="!userName">
+  <div class="spinner">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+  </div>
+</span>
+
+<div class="container-fluid" *ngIf="userName">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <header>
+                <div class="user-block-wrapp">
+                    <div class="user-photo hidden-xs">
+                        <img src="{{userImg}}" alt="">
+                    </div>
+                    <div class="user-info">
+                        <h1>{{userName}}</h1>
+                        <div class="email">{{userEmail}}</div>
+                    </div>
+                </div>
+                <div class="enter-btn-block">
+                    <button  class="btn btn-success btn-lg" (click)="logout()">Выход</button>
+                </div>
+            </header>
+        </div>
+    </div>
+    <div class="row">
+        <div class="line"></div>
+    </div>
+    <section class="chat-wrapp" #scrollMe >
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="chat-item" [class.my-messages]="myId == item?.uid" *ngFor="let item of items | async">
+                    <h4>{{ item?.user }}</h4>
+                    <div class="item-message">
+                        <img src="{{ item?.img }}" alt="..." >
+                        <div class="item-text">
+                            <!-- <button class="btn btn-danger btn-xs" (click)="deleteItem(item.$key)">удалить</button> -->
+                            {{ item?.text }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row">
+        <div class="line"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <footer>
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" [(ngModel)]="newMessage" (keypress)="submitMessage($event)" placeholder="Ваше сообщение"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-lg" (click)="sendMessage()">отправить</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>

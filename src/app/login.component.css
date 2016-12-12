@@ -1,0 +1,19 @@
+.login-container {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.login-container h2 {
+    margin-top: -15vh;    
+}
+.login-container h1 {
+    margin-top: 0;
+}
+.login-container h4 {
+    margin-bottom: 30px;
+}
