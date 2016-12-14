@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
-import {Routes, RouterModule} from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { EmojiModule } from 'angular2-emoji';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login.component';
@@ -33,6 +34,7 @@ const firebaseConfig = {
     BrowserModule,
     FormsModule,
     HttpModule,
+    EmojiModule,
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(firebaseConfig,{
       provider: AuthProviders.Google,

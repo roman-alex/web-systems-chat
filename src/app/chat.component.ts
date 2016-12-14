@@ -21,7 +21,12 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     userEmail: string = '';
     myDate = Date.now();
 
-    constructor(public router: Router, public af: AngularFire) {
+    constructor(public router: Router, public af: AngularFire) {}
+
+    @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+    @ViewChild('emojiInput') private emojiInput;
+
+    ngOnInit() {
         this.af.auth.subscribe(user => {
           if(user) {
             this.user = user;
@@ -30,23 +35,19 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             this.userId = user.auth.uid;
             this.userEmail = user.auth.email;
             this.myId = user.uid;
-            // console.log(user);
           }
           else {
             this.user = {uid: ''};
           }
         });
-        this.items = af.database.list('/items', {
+
+        this.items = this.af.database.list('/items', {
             query: {
                 limitToLast: 100,
                 orderByKey: true
             }
         });
-    }
 
-    @ViewChild('scrollMe') private myScrollContainer: ElementRef;
-
-    ngOnInit() {
         this.scrollToBottom();
     }
 
@@ -56,9 +57,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
     sendMessage() {
 
-        if (this.newMessage != '') {
+        if (this.emojiInput.input != '') {
             this.itemPush();
-            this.newMessage = '';
+            this.emojiInput.input = '';
             this.scrollToBottom();
 
         } else {
@@ -76,10 +77,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     }
 
     submitMessage(event) {
-        if (event.which === 13 && this.newMessage != '') {
+        if (event.which === 13 && this.emojiInput.input != '') {
             event.preventDefault();
             this.itemPush();
-            this.newMessage = '';
+            this.emojiInput.input = '';
             this.scrollToBottom();
         }
     }
@@ -91,13 +92,31 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     }
 
     itemPush() {
+        this.inspectionInput('http://');
+        this.inspectionInput('https://');
         this.items.push({
-            text: this.newMessage,
+            text: this.emojiInput.input,
             user: this.userName,
             img: this.userImg,
             uid: this.userId,
             data: this.myDate
         });
+    }
+
+    inspectionInput(val) {
+        let message: string = this.emojiInput.input;
+
+        if ( message.indexOf('<iframe') != -1) {
+            this.emojiInput.input = '';
+        } else if ( message.indexOf(val) != -1 && message.indexOf('<img') == -1) {
+            let arr = message.split(' ');
+            for (let i = 0; i < arr.length; i++) {
+                if ( arr[i].indexOf(val) != -1 ) {
+                    arr[i] = `<a href="${arr[i]}" target="_blank">${arr[i]}</a>`
+                }
+            }
+            this.emojiInput.input = arr.join(' ');
+        }
     }
 
 }

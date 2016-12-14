@@ -1,3 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./assets/bootstrap-3.3.7-dist/css/bootstrap.min.css";
+/*@import "./assets/smiles/smiles.css";*/
 @import "./app/spinner.css";
+
+@font-face {
+    font-family: "Emoji";
+    src: url('./assets/fonts/EmojiOneColor-SVGinOT.ttf')  format('truetype');
+}
+
+img {
+    max-width: 100%;
+}
+emoji-input{
+    font-family: "Emoji", "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+emoji-input input {
+    padding: 8px 40px 8px 10px !important;
+}

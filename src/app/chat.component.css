@@ -35,14 +35,14 @@ header {
 .chat-wrapp {
     position: relative;
     overflow-y: scroll;
-    height: calc(100vh - 330px);
+    height: calc(100vh - 280px);
     padding: 20px;
     background-color: #f5fafc;
     margin-left: -15px;
     margin-right: -15px;
 }
 .chat-item {
-    margin-top: 20px;
+    margin-bottom: 20px;
     margin-right: 20px;
     margin-left: 0px;
 }
@@ -69,6 +69,7 @@ header {
     padding: 15px;
     word-wrap: break-word; /* Перенос слов */
     width: calc(100% - 70px);
+    font-family: "Emoji", "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .chat-item.my-messages {
     margin-right: 0px;
@@ -87,11 +88,8 @@ header {
     overflow: hidden;
 }
 footer {
-    height: 200px;
+    height: 150px;
     padding-top: 20px;
-}
-footer textarea {
-    resize: none;
 }
 @media screen and (max-width: 767px) {
     header {
@@ -99,7 +97,7 @@ footer textarea {
         height: 80px;
     }
     .chat-wrapp {
-        height: calc(100vh - 235px);
+        height: calc(100vh - 205px);
     }
     .user-block-wrapp .user-photo {
         width: 80px;
@@ -111,7 +109,7 @@ footer textarea {
         font-size: 12px;
     }
     footer {
-        height: 150px;
+        height: 120px;
     }
     footer button,
     .enter-btn-block button {

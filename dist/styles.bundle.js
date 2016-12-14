@@ -57,16 +57,16 @@ module.exports = function() {
 
 /***/ },
 
-/***/ 382:
+/***/ 384:
 /***/ function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(653);
+var content = __webpack_require__(657);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(689)(content, {});
+var update = __webpack_require__(696)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -84,23 +84,23 @@ if(false) {
 
 /***/ },
 
-/***/ 653:
+/***/ 657:
 /***/ function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(235)();
 // imports
-exports.i(__webpack_require__(655), "");
-exports.i(__webpack_require__(654), "");
+exports.i(__webpack_require__(659), "");
+exports.i(__webpack_require__(658), "");
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n/*@import \"./assets/smiles/smiles.css\";*/\n\n@font-face {\n    font-family: \"Emoji\";\n    src: url(" + __webpack_require__(697) + ")  format('truetype');\n}\n\nimg {\n    max-width: 100%;\n}\nemoji-input{\n    font-family: \"Emoji\", \"Helvetica Neue\",Helvetica,Arial,sans-serif;\n}\nemoji-input input {\n    padding: 8px 40px 8px 10px !important;\n}\n", ""]);
 
 // exports
 
 
 /***/ },
 
-/***/ 654:
+/***/ 658:
 /***/ function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(235)();
@@ -115,7 +115,7 @@ exports.push([module.i, ".loading {\n    display: -webkit-flex;\n    display: -m
 
 /***/ },
 
-/***/ 655:
+/***/ 659:
 /***/ function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(235)();
@@ -130,7 +130,7 @@ exports.push([module.i, "/*!\n * Bootstrap v3.3.7 (http://getbootstrap.com)\n * 
 
 /***/ },
 
-/***/ 689:
+/***/ 696:
 /***/ function(module, exports) {
 
 /*
@@ -383,13 +383,20 @@ function updateLink(linkElement, obj) {
 
 /***/ },
 
-/***/ 692:
+/***/ 697:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(382);
+module.exports = __webpack_require__.p + "31a2d6b5c2eb1a2ab23d465e492fd5cf.ttf";
+
+/***/ },
+
+/***/ 700:
+/***/ function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(384);
 
 
 /***/ }
 
-},[692]);
+},[700]);
 //# sourceMappingURL=styles.bundle.map

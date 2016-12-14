@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AuthProviders, AuthMethods } from 'angularfire2';
 import { Subject } from 'rxjs/Subject';
@@ -13,7 +13,9 @@ export class LoginComponent {
     userName: string = '';
     userImg: string = '';
 
-    constructor(private router: Router, public af: AngularFire) {
+    constructor(private router: Router, public af: AngularFire) {}
+
+    ngOnInit() {
         this.af.auth.subscribe(user => {
           if(user) {
             this.user = user;
@@ -25,7 +27,7 @@ export class LoginComponent {
           }
         });
     }
-    
+
     login() {
       this.af.auth.login({
           provider: AuthProviders.Google,
