@@ -1,0 +1,10 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /home/adrin/.nvm/versions/node/v6.7.0/bin/node /home/adrin/.nvm/versions/node/v6.7.0/bin/firebase deploy
+[debug] CLI Version:  3.2.1
+[debug] Platform:     linux
+[debug] Node Version: v6.7.0
+[debug] Time:         Thu Jan 05 2017 18:43:20 GMT+0200 (EET)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/testchat-483ef 

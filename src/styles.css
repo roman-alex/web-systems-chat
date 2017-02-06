@@ -1,19 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
-@import "./assets/bootstrap-3.3.7-dist/css/bootstrap.min.css";
-/*@import "./assets/smiles/smiles.css";*/
+@import "./assets/bootstrap-4.0.0-alpha.5-dist/css/bootstrap.min.css";
+/*@import "./assets/bootstrap-3.3.7-dist/css/bootstrap.min.css";
+@import "./assets/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css";*/
+
+@import "./assets/font-awesome-4.7.0/css/font-awesome.min.css";
 @import "./app/spinner.css";
 
 @font-face {
     font-family: "Emoji";
     src: url('./assets/fonts/EmojiOneColor-SVGinOT.ttf')  format('truetype');
 }
-
 img {
     max-width: 100%;
 }
-emoji-input{
-    font-family: "Emoji", "Helvetica Neue",Helvetica,Arial,sans-serif;
+button {
+    outline: none;
+}
+emoji-input {
+    width: calc(100% - 55px);
 }
 emoji-input input {
     padding: 8px 40px 8px 10px !important;
+}
+@media screen and (min-width: 1200px) {
+    emoji-input{
+        font-family: "Emoji", "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
 }

@@ -5,16 +5,30 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { Routes, RouterModule } from '@angular/router';
 import { EmojiModule } from 'angular2-emoji';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login.component';
-import { ChatComponent } from './chat.component';
-
+import { LoginComponent } from './pages/login/login.component';
+import { ChatComponent } from './pages/chat/chat.component';
+import { PeopleComponent } from './pages/people/people.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PersonComponent } from './pages/person/person.component';
+import { PrivatComponent } from './pages/privat/privat.component';
+import { MessagesComponent } from './pages/messages/messages.component';
+import { SettingComponent } from './pages/setting/setting.component'
+// import { NgbdCarouselConfig } from './components/carousel/carousel.component';
 
 const appRoutes: Routes =[
-    { path: 'login', component: LoginComponent},
+    { path: '', component: HomeComponent },
+    { path: 'person/:id', component: PersonComponent },
     { path: 'chat', component: ChatComponent },
-    { path: '**', component: LoginComponent }
+    { path: 'people', component: PeopleComponent },
+    { path: 'privat/:id', component: PrivatComponent },
+    { path: 'messages', component: MessagesComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'setting', component: SettingComponent },
+    { path: '**', redirectTo: '' }
 ];
 
 const firebaseConfig = {
@@ -28,7 +42,14 @@ const firebaseConfig = {
   declarations: [
     AppComponent,
     LoginComponent,
-    ChatComponent
+    ChatComponent,
+    PeopleComponent,
+    HomeComponent,
+    PersonComponent,
+    PrivatComponent,
+    MessagesComponent,
+    SettingComponent,
+    // NgbdCarouselConfig
   ],
   imports: [
     BrowserModule,
@@ -39,7 +60,8 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig,{
       provider: AuthProviders.Google,
       method: AuthMethods.Popup
-    })
+    }),
+    NgbModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

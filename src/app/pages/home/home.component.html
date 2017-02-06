@@ -1,0 +1,49 @@
+<div *ngIf="(af.auth | async)" class="container">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="ava-wrapp">
+            <img  alt="" src="{{ userImg }}">
+        </div>
+      </div>
+      <div class="col-md-10">
+          <div class="list-group">
+              <div class="list-group-item">
+                  <div class="user-name">{{ userName }}</div>
+              </div>
+          </div>
+          <div class="list-group">
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">Моб. телефон:</div>
+                  <div class="text-inform">{{ (person | async)?.telSet || '-'}} </div>
+              </div>
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">Email:</div>
+                  <div class="text-inform">{{ (person | async)?.emailSet || (person | async)?.email || '-'}}</div>
+              </div>
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">Провайдер:</div>
+                  <div class="text-inform">{{ (person | async)?.providerId || '-'}}</div>
+              </div>
+          </div>
+          <div class="list-group">
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">День народження:</div>
+                  <div class="text-inform">{{ (person | async)?.birthSet || '-'}} </div>
+              </div>
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">Місто:</div>
+                  <div class="text-inform">{{ (person | async)?.townSet || '-'}} </div>
+              </div>
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">Місце роботи:</div>
+                  <div class="text-inform">{{ (person | async)?.workSet || '-'}} </div>
+              </div>
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">ВНЗ:</div>
+                  <div class="text-inform">{{ (person | async)?.stadySet || '-'}} </div>
+              </div>
+          </div>
+          <a class="btn setting-profile" routerLink="/setting" role="button">Редагувати</a>
+      </div>
+    </div>
+</div>

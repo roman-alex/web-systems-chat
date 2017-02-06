@@ -1,0 +1,21 @@
+<div class="people-wrapp">
+    <div class="person" *ngFor="let person of people | async">
+
+        <span (click)="routPerson(person?.$key)">
+            <img class="person-img" src="{{person?.img}}" alt="">
+        </span>
+
+        <div class="person-info">
+            <div class="person-name">
+                <span (click)="routPerson(person?.$key)">{{ person?.user }}</span>
+            </div>
+            <div class="person-provider">
+                <img *ngIf=" person?.providerId == 'google.com' || person?.email" src="../../../assets/img/auth_service_google.svg" alt="">
+                <img *ngIf=" person?.providerId == 'facebook.com' " src="../../../assets/img/auth_service_facebook.svg" alt="">
+                <img *ngIf=" person?.providerId == 'github.com' " src="../../../assets/img/auth_service_github.svg" alt="">
+            </div>
+            <a class="person-btn" (click)="massagePerson(person?.$key)" *ngIf="userId != person?.$key">Написати</a>
+        </div>
+
+    </div>
+</div>

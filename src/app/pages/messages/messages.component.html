@@ -1,0 +1,16 @@
+<div class="people-wrapp">
+    <div class="person" [class.active]="!(person?.info.read)"  (click)="massagePerson(person?.$key)" *ngFor="let person of people | async">
+        <div class="person-img-wrapp">
+            <img class="person-img" src="{{person?.info.img}}" alt="">
+            <div  class="person-icon-wrapp">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="person-info">
+            <div class="person-name">
+                <span>{{ person?.info.user }}</span>
+            </div>
+            <div class="message-text"> <img *ngIf="person?.info.lastMessageImg == userImg" class="message-text-img" src="{{person?.info.lastMessageImg}}" alt="">{{person?.info.lastMessage}}</div>
+        </div>
+    </div>
+</div>

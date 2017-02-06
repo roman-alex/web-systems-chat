@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="row">
+      <!-- <div class="col-md-3">
+        <div class="ava-wrapp">
+            <img *ngIf="(person | async)?.img" alt="" src="{{ (person | async)?.img }}">
+        </div>
+      </div> -->
+      <div class="col-md-12">
+          <!-- <div class="list-group">
+              <div class="list-group-item">
+                  <div class="user-name">
+                      <div class="form-group">
+                        <input type="text" class="form-control" [(ngModel)]="userNameSet" [value]="(person | async)?.user">
+                      </div>
+                  </div>
+              </div>
+          </div> -->
+          <div class="list-group">
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">Моб. телефон:</div>
+                  <div class="text-inform">
+                      <div class="form-group">
+                        <input type="text" [(ngModel)]="userTelSet" class="form-control" [value]="(person | async)?.telSet || ''">
+                      </div>
+                  </div>
+              </div>
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">Email:</div>
+                  <div class="text-inform">
+                      <div class="form-group">
+                        <input type="text" class="form-control" [(ngModel)]="userEmailSet" [value]="(person | async)?.emailSet || (person | async)?.email || ''">
+                      </div>
+                  </div>
+              </div>
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">День народження:</div>
+                  <div class="text-inform">
+                      <div class="form-group">
+                        <input type="text" [(ngModel)]="userBirthSet" class="form-control" [value]="(person | async)?.birthSet || ''">
+                      </div>
+                  </div>
+              </div>
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">Місто:</div>
+                  <div class="text-inform">
+                      <div class="form-group">
+                        <input type="text" [(ngModel)]="userTownSet" class="form-control" [value]="(person | async)?.townSet || ''">
+                      </div>
+                  </div>
+              </div>
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">Місце роботи:</div>
+                  <div class="text-inform">
+                      <div class="form-group">
+                        <input type="text" [(ngModel)]="userWorkSet" class="form-control" [value]="(person | async)?.workSet || ''">
+                      </div>
+                  </div>
+              </div>
+              <div class="list-group-item clearfix">
+                  <div class="lable-info">ВНЗ:</div>
+                  <div class="text-inform">
+                      <div class="form-group">
+                        <input type="text" [(ngModel)]="userStadySet" class="form-control" [value]="(person | async)?.stadySet || ''">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <a class="btn setting-profile" routerLink="/" role="button">Відмінити</a>
+          <a class="btn setting-profile" routerLink="/" (click)="settingSet()" role="button">Зберегти</a>
+      </div>
+    </div>
+</div>

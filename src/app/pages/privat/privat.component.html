@@ -1,0 +1,49 @@
+<div class="container-fluid" *ngIf="af.auth | async">
+    <section class="chat-head-wrapp">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="chat-head">
+                    <a routerLink="/messages" class="chat-head-back"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                    <img class="chat-head-img" src="{{ (itemChatInfo | async)?.img }}" alt="">
+                    <div class="chat-head-name">
+                        {{ (itemChatInfo | async)?.user }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="chat-wrapp" #scrollMe >
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="chat-item" [class.my-messages]="userId == item?.uid" *ngFor="let item of items | async">
+                    <h4>
+                        {{ item?.user }}
+                        <!-- <button style="position: absolute;top: 0;left: 0;z-index: 1;" class="btn btn-danger btn-xs" (click)="deleteItem(item.$key)" *ngIf="userId == 'jKcx2W1qh2XdtFi0OykySIVa1MP2'"><i class="fa fa-trash" aria-hidden="true"></i></button> -->
+                    </h4>
+                    <div class="time">{{ item?.data | date:"HH:mm dd/MM/yy" }}</div>
+                    <div class="item-message">
+                        <img src="{{ item?.img }}" alt="..." >
+                        <div class="item-text" [innerHTML]="item?.text"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row">
+        <div class="line"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <footer>
+                <emoji-input  #emojiInput
+                  (keypress)="submitMessage($event)"
+                  [popupAnchor]="'bottom'">
+                </emoji-input>
+                <button class="send-btn" (click)="sendMessage()">
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </button>
+                <!-- <input type="file" (change)="loadImg($event)" name="photo" accept="image/jpeg,image/png"> -->
+            </footer>
+        </div>
+    </div>
+</div>
