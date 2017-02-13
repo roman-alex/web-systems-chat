@@ -1,6 +1,5 @@
-import { Component, AfterViewChecked, ElementRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AuthProviders, AuthMethods } from 'angularfire2';
-import { Subject } from 'rxjs/Subject';
+import { Component, AfterViewChecked, ElementRef, ViewChild, OnInit, OnDestroy, Inject} from '@angular/core';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, FirebaseApp } from 'angularfire2';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -22,43 +21,42 @@ export class PrivatComponent implements OnInit, AfterViewChecked {
     itemChatDate: FirebaseObjectObservable<any>;
     items: FirebaseListObservable<any>;
     newMessage: string = '';
-    user = {};
-    userName: string = '';
-    userImg: string = '';
-    userId: string = '';
-    userEmail: string = '';
-
+    user = <any>{};
     itemInfoUser: string = '';
     itemInfoImg: string = '';
+    storageRef: any;
+    // storage: any;
 
-    constructor(private activateRoute: ActivatedRoute, public router: Router, public af: AngularFire) {
+    constructor(@Inject(FirebaseApp) firebaseApp: any, private activateRoute: ActivatedRoute, public router: Router, public af: AngularFire) {
         this.subscription = activateRoute.params.subscribe(params=>this.id=params['id']);
+
+        // this.storage = firebaseApp.storage();
+        this.storageRef = firebaseApp.storage().ref();
     }
 
     @ViewChild('scrollMe') private myScrollContainer: ElementRef;
     @ViewChild('emojiInput') private emojiInput;
+    @ViewChild("uploader") private uploader;
 
     ngOnInit() {
         this.af.auth.subscribe(user => {
           if(user) {
-            // set info this user
-            this.user = user;
-            this.userName = user.auth.displayName;
-            this.userImg = user.auth.photoURL;
-            this.userId = user.auth.uid;
-            this.userEmail = user.auth.email;
+            this.user.name = user.auth.displayName;
+            this.user.img = user.auth.photoURL;
+            this.user.id = user.auth.uid;
+            this.user.email = user.auth.email;
 
-            this.itemChatDate = this.af.database.object(`/people/${this.userId}/privatChats/${this.id}`);
-            this.itemInterlocutorChatDate = this.af.database.object(`/people/${this.id}/privatChats/${this.userId}`);
-            this.itemInterlocutorChatInfo = this.af.database.object(`/people/${this.id}/privatChats/${this.userId}/info`);
-            this.itemChatInfo = this.af.database.object(`/people/${this.userId}/privatChats/${this.id}/info`);
+            this.itemChatDate = this.af.database.object(`/people/${this.user.id}/privatChats/${this.id}`);
+            this.itemInterlocutorChatDate = this.af.database.object(`/people/${this.id}/privatChats/${this.user.id}`);
+            this.itemInterlocutorChatInfo = this.af.database.object(`/people/${this.id}/privatChats/${this.user.id}/info`);
+            this.itemChatInfo = this.af.database.object(`/people/${this.user.id}/privatChats/${this.id}/info`);
             this.itemInfo = this.af.database.object(`/people/${this.id}`, { preserveSnapshot: true });
-            this.itemsInterlocutor = this.af.database.list(`/people/${this.id}/privatChats/${this.userId}/chat`);
-            this.items = this.af.database.list(`/people/${this.userId}/privatChats/${this.id}/chat`);
+            this.itemsInterlocutor = this.af.database.list(`/people/${this.id}/privatChats/${this.user.id}/chat`);
+            this.items = this.af.database.list(`/people/${this.user.id}/privatChats/${this.id}/chat`);
 
             this.itemInterlocutorChatInfo.update({
-                user: this.userName,
-                img: this.userImg,
+                user: this.user.name,
+                img: this.user.img,
             });
             this.itemInfo.subscribe(
                 val => {
@@ -126,26 +124,26 @@ export class PrivatComponent implements OnInit, AfterViewChecked {
         this.inspectionInput('https://');
         this.itemsInterlocutor.push({
             text: this.emojiInput.input,
-            user: this.userName,
-            img: this.userImg,
-            uid: this.userId,
+            user: this.user.name,
+            img: this.user.img,
+            uid: this.user.id,
             data: Date.now()
         });
         this.items.push({
             text: this.emojiInput.input,
-            user: this.userName,
-            img: this.userImg,
-            uid: this.userId,
+            user: this.user.name,
+            img: this.user.img,
+            uid: this.user.id,
             data: Date.now()
         });
         this.itemInterlocutorChatInfo.update({
             read: false,
             lastMessage : this.emojiInput.input,
-            lastMessageImg : this.userImg
+            lastMessageImg : this.user.img
         });
         this.itemChatInfo.update({
             lastMessage : this.emojiInput.input,
-            lastMessageImg : this.userImg,
+            lastMessageImg : this.user.img,
             read: true
         });
         this.itemChatDate.update({
@@ -171,8 +169,116 @@ export class PrivatComponent implements OnInit, AfterViewChecked {
         }
     }
 
-    // loadImg(e) {
-    //   var files = e.target.files[0];
-    //   console.log(files, this.af);
-    // }
+    loadImg(e) {
+
+        var files = e.target.files[0];
+        var fileImg = '';
+        var metadata = {
+          contentType: 'image/jpeg/png'
+        };
+
+        var uploadTask = this.storageRef.child(`images/${this.user.id}/${Date.now()}-${files.name}`).put(files, metadata);
+
+        uploadTask.on('state_changed', (snapshot) => {
+                // this.uploader.nativeElement.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            }, (error) => {
+                console.log('error: ' + error);
+            }, () => {
+                var downloadURL = uploadTask.snapshot.downloadURL;
+
+                this.itemsInterlocutor.push({
+                    fileImgDownload: downloadURL,
+                    user: this.user.name,
+                    img: this.user.img,
+                    uid: this.user.id,
+                    data: Date.now()
+                });
+                this.items.push({
+                    fileImgDownload: downloadURL,
+                    user: this.user.name,
+                    img: this.user.img,
+                    uid: this.user.id,
+                    data: Date.now()
+                });
+                this.itemInterlocutorChatInfo.update({
+                    read: false,
+                    lastMessage : 'image',
+                    lastMessageImg : this.user.img
+                });
+                this.itemChatInfo.update({
+                    lastMessage : 'image',
+                    lastMessageImg : this.user.img,
+                    read: true
+                });
+                this.itemChatDate.update({
+                    date: 0 - Date.now()
+                });
+                this.itemInterlocutorChatDate.update({
+                    date: 0 - Date.now()
+                });
+        });
+    }
+
+    loadFiles(e) {
+
+        var files = e.target.files[0];
+        var fileImg = '';
+        var metadata = {
+          contentType: null
+        };
+
+        var obj = files.name.split('.');
+        var ext = obj[obj.length -1];
+
+        if(ext=="pdf" || ext=="docx" || ext=="doc" ||  ext=="zip"){
+            if(files.size > 20000000) {
+                alert('Файл перевищує 20МБ');
+            } else {
+                var uploadTask = this.storageRef.child(`docs/${this.user.id}/${Date.now()}-${files.name}`).put(files, metadata);
+
+                uploadTask.on('state_changed', (snapshot) => {
+                        // this.uploader.nativeElement.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    }, (error) => {
+                        console.log('error: ' + error);
+                    }, () => {
+                        var downloadURL = uploadTask.snapshot.downloadURL;
+
+                        this.itemsInterlocutor.push({
+                            fileDocName: files.name,
+                            fileDocDownload: downloadURL,
+                            user: this.user.name,
+                            img: this.user.img,
+                            uid: this.user.id,
+                            data: Date.now()
+                        });
+                        this.items.push({
+                            fileDocName: files.name,
+                            fileDocDownload: downloadURL,
+                            user: this.user.name,
+                            img: this.user.img,
+                            uid: this.user.id,
+                            data: Date.now()
+                        });
+                        this.itemInterlocutorChatInfo.update({
+                            read: false,
+                            lastMessage : 'document',
+                            lastMessageImg : this.user.img
+                        });
+                        this.itemChatInfo.update({
+                            lastMessage : 'document',
+                            lastMessageImg : this.user.img,
+                            read: true
+                        });
+                        this.itemChatDate.update({
+                            date: 0 - Date.now()
+                        });
+                        this.itemInterlocutorChatDate.update({
+                            date: 0 - Date.now()
+                        });
+                });
+            }
+        } else{
+            alert('Невідомий формат документа');
+        };
+    }
 }

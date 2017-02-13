@@ -17,7 +17,7 @@ button {
     outline: none;
 }
 emoji-input {
-    width: calc(100% - 55px);
+    width: calc(100% - 105px);
 }
 emoji-input input {
     padding: 8px 40px 8px 10px !important;

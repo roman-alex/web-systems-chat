@@ -1,7 +1,6 @@
-import { Component, AfterViewChecked, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AuthProviders, AuthMethods } from 'angularfire2';
-import { Subject } from 'rxjs/Subject';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AngularFire } from 'angularfire2';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,19 +11,17 @@ import { Observable } from 'rxjs';
 export class PeopleComponent implements OnInit {
 
     people: Observable<any>;
-    userId: string = '';
 
     constructor(public router: Router, public af: AngularFire) {}
 
     ngOnInit() {
         this.af.auth.subscribe(user => {
-          if(user) {
-            this.userId = user.auth.uid;
-            this.people = this.af.database.list(`/people`).map(items => {
-                const filtered = items.filter(item => item.$key != this.userId);
-                return filtered;
-            });
-          }
+            if(user) {
+                this.people = this.af.database.list(`/people`).map(items => {
+                    const filtered = items.filter(item => item.$key != user.auth.uid);
+                    return filtered;
+                });
+            }
         });
     }
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
-import {Router} from '@angular/router';
+import { AngularFire, FirebaseObjectObservable} from 'angularfire2';
 
 @Component({
     selector: 'home',
@@ -10,20 +9,16 @@ import {Router} from '@angular/router';
 export class HomeComponent {
 
     person: FirebaseObjectObservable<any>;
-    userId: string = '';
-    userName: string = '';
-    userImg: string = '';
+    user = <any>{};
 
-    constructor(public router: Router, public af: AngularFire) {}
+    constructor( public af: AngularFire) {}
 
     ngOnInit() {
         this.af.auth.subscribe(user => {
           if(user) {
-            this.userId = user.auth.uid;
-            this.userName = user.auth.displayName;
-            this.userImg = user.auth.photoURL;
-
-            this.person = this.af.database.object(`/people/${this.userId}`);
+            this.user.name = user.auth.displayName;
+            this.user.img = user.auth.photoURL;
+            this.person = this.af.database.object(`/people/${user.auth.uid}`);
           }
         });
     }

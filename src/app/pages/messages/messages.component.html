@@ -10,7 +10,10 @@
             <div class="person-name">
                 <span>{{ person?.info.user }}</span>
             </div>
-            <div class="message-text"> <img *ngIf="person?.info.lastMessageImg == userImg" class="message-text-img" src="{{person?.info.lastMessageImg}}" alt="">{{person?.info.lastMessage}}</div>
+            <div class="message-text">
+                <img *ngIf="person?.info.lastMessageImg == userImg" class="message-text-img" src="{{person?.info.lastMessageImg}}" alt="">
+                {{person?.info.lastMessage}}
+            </div>
         </div>
     </div>
 </div>

@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container" *ngIf="(person | async)">
     <div class="row">
       <div class="col-md-2">
         <div *ngIf="(person | async)?.img" class="ava-wrapp">
-            <img  alt="" src="{{ (person | async)?.img }}">
+            <img  alt="" [src]="(person | async)?.img">
         </div>
       </div>
       <div class="col-md-10">

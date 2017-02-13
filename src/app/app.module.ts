@@ -5,7 +5,9 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { Routes, RouterModule } from '@angular/router';
 import { EmojiModule } from 'angular2-emoji';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { LoginService } from './services/login.service';
+import { NoAuthGuard } from './services/no-auth-guard.service';
 
 
 import { AppComponent } from './app.component';
@@ -16,8 +18,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { PersonComponent } from './pages/person/person.component';
 import { PrivatComponent } from './pages/privat/privat.component';
 import { MessagesComponent } from './pages/messages/messages.component';
-import { SettingComponent } from './pages/setting/setting.component'
-// import { NgbdCarouselConfig } from './components/carousel/carousel.component';
+import { SettingComponent } from './pages/setting/setting.component';
+
 
 const appRoutes: Routes =[
     { path: '', component: HomeComponent },
@@ -26,7 +28,7 @@ const appRoutes: Routes =[
     { path: 'people', component: PeopleComponent },
     { path: 'privat/:id', component: PrivatComponent },
     { path: 'messages', component: MessagesComponent },
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard]},
     { path: 'setting', component: SettingComponent },
     { path: '**', redirectTo: '' }
 ];
@@ -49,7 +51,6 @@ const firebaseConfig = {
     PrivatComponent,
     MessagesComponent,
     SettingComponent,
-    // NgbdCarouselConfig
   ],
   imports: [
     BrowserModule,
@@ -63,7 +64,7 @@ const firebaseConfig = {
     }),
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [NoAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

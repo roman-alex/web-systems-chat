@@ -1,8 +1,6 @@
-import { Component, AfterViewChecked, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AuthProviders, AuthMethods } from 'angularfire2';
-import { Subject } from 'rxjs/Subject';
-import {Router} from '@angular/router';
-
+import { Component, AfterViewChecked, ElementRef, ViewChild, OnInit, Inject } from '@angular/core';
+import { AngularFire, FirebaseListObservable, FirebaseApp } from 'angularfire2';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'chat',
@@ -13,31 +11,28 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
     items: FirebaseListObservable<any>;
     newMessage: string = '';
-    user = {};
-    userName: string = '';
-    userImg: string = '';
-    userId: string = '';
-    userEmail: string = '';
+    user = <any>{};
     myDate = Date.now();
+    storageRef: any;
 
-    constructor(public router: Router, public af: AngularFire) {}
+    constructor(@Inject(FirebaseApp) firebaseApp: any, public router: Router, public af: AngularFire) {
+        this.storageRef = firebaseApp.storage().ref();
+    }
 
     @ViewChild('scrollMe') private myScrollContainer: ElementRef;
     @ViewChild('emojiInput') private emojiInput;
 
     ngOnInit() {
         this.af.auth.subscribe(user => {
-          if(user) {
-            // set info this user
-            this.user = user;
-            this.userName = user.auth.displayName;
-            this.userImg = user.auth.photoURL;
-            this.userId = user.auth.uid;
-            this.userEmail = user.auth.email;
-          }
-          else {
-            this.user = {uid: ''};
-          }
+            if(user) {
+                this.user.name = user.auth.displayName;
+                this.user.img = user.auth.photoURL;
+                this.user.id = user.auth.uid;
+                this.user.email = user.auth.email;
+            }
+            else {
+                this.user = {uid: ''};
+            }
         });
         this.items = this.af.database.list('/items');
     }
@@ -82,9 +77,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.inspectionInput('https://');
         this.items.push({
             text: this.emojiInput.input,
-            user: this.userName,
-            img: this.userImg,
-            uid: this.userId,
+            user: this.user.name,
+            img: this.user.img,
+            uid: this.user.id,
             data: this.myDate
         });
     }
@@ -105,4 +100,67 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         }
     }
 
+    loadImg(e) {
+
+        var files = e.target.files[0];
+        var fileImg = '';
+        var metadata = {
+          contentType: 'image/jpeg/png'
+        };
+
+        var uploadTask = this.storageRef.child(`images/chat/${this.user.id}/${Date.now()}-${files.name}`).put(files, metadata);
+
+        uploadTask.on('state_changed', (snapshot) => {
+                // this.uploader.nativeElement.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            }, (error) => {
+                console.log('error: ' + error);
+            }, () => {
+                var downloadURL = uploadTask.snapshot.downloadURL;
+                this.items.push({
+                    fileImgDownload: downloadURL,
+                    user: this.user.name,
+                    img: this.user.img,
+                    uid: this.user.id,
+                    data: this.myDate
+                });
+        });
+    }
+
+    loadFiles(e) {
+
+        var files = e.target.files[0];
+        var fileImg = '';
+        var metadata = {
+          contentType: null
+        };
+
+        var obj = files.name.split('.');
+        var ext = obj[obj.length -1];
+
+        if(ext=="pdf" || ext=="docx" || ext=="doc" ||  ext=="zip"){
+            if(files.size > 20000000) {
+                alert('Файл перевищує 20МБ');
+            } else {
+                var uploadTask = this.storageRef.child(`docs/chat/${this.user.id}/${Date.now()}-${files.name}`).put(files, metadata);
+
+                uploadTask.on('state_changed', (snapshot) => {
+                        // this.uploader.nativeElement.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    }, (error) => {
+                        console.log('error: ' + error);
+                    }, () => {
+                        var downloadURL = uploadTask.snapshot.downloadURL;
+                        this.items.push({
+                            fileDocName: files.name,
+                            fileDocDownload: downloadURL,
+                            user: this.user.name,
+                            img: this.user.img,
+                            uid: this.user.id,
+                            data: this.myDate
+                        });
+                });
+            }
+        } else{
+            alert('Невідомий формат документа');
+        };
+    }
 }

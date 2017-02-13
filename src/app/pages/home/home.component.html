@@ -1,14 +1,14 @@
-<div *ngIf="(af.auth | async)" class="container">
+<div class="container" *ngIf="(person | async)">
     <div class="row">
       <div class="col-md-2">
-        <div class="ava-wrapp">
-            <img  alt="" src="{{ userImg }}">
+        <div *ngIf="(person | async)?.img" class="ava-wrapp">
+            <img  alt="" [src]="user.img">
         </div>
       </div>
       <div class="col-md-10">
           <div class="list-group">
               <div class="list-group-item">
-                  <div class="user-name">{{ userName }}</div>
+                  <div class="user-name">{{ user.name }}</div>
               </div>
           </div>
           <div class="list-group">
