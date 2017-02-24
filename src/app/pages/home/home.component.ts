@@ -16,8 +16,6 @@ export class HomeComponent {
     ngOnInit() {
         this.af.auth.subscribe(user => {
           if(user) {
-            this.user.name = user.auth.displayName;
-            this.user.img = user.auth.photoURL;
             this.person = this.af.database.object(`/people/${user.auth.uid}`);
           }
         });

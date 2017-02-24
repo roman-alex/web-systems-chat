@@ -1,16 +1,22 @@
 <div class="login-container">
-    <h2>Войдите на ресурс</h2>
+    <h2>Увійдіть на ресурс</h2>
     <!-- <h1>Web-Systems</h1> -->
-    <!-- <div class="form-group">
-        <input type="text" class="form-control" [(ngModel)]="userEmail" placeholder="Email">
+    <div class="form-group">
+        <input type="text" class="form-control" [(ngModel)]="user.email" placeholder="Email">
     </div>
     <div class="form-group">
-        <input type="password" class="form-control" [(ngModel)]="userPassword" placeholder="Password">
+        <input type="password" class="form-control" [(ngModel)]="user.password" placeholder="Password">
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="valid">
+          Не вірно вказаний логін або пароль
     </div>
     <div class="form-group">
-        <button type="button" (click)="loginPassword()" class="btn btn-primary btn-block">Submit</button>
-    </div> -->
-    <h4>с помощью аккаунта:</h4>
+        <button type="button" (click)="loginPassword()" class="btn btn-primary btn-block">Логін</button>
+    </div>
+    <div class="form-group">
+        <a routerLink="/registration" class="btn btn-secondary btn-block">Реєстрація</a>
+    </div>
+    <h4>з аккаунта:</h4>
     <div>
         <button  class="login-btn" (click)="loginGoogle()">
             <i class="fa fa-google-plus" aria-hidden="true"></i>

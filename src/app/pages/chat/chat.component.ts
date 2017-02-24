@@ -14,6 +14,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     user = <any>{};
     myDate = Date.now();
     storageRef: any;
+    userInfoSet: FirebaseListObservable<any>;
 
     constructor(@Inject(FirebaseApp) firebaseApp: any, public router: Router, public af: AngularFire) {
         this.storageRef = firebaseApp.storage().ref();
@@ -25,10 +26,19 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     ngOnInit() {
         this.af.auth.subscribe(user => {
             if(user) {
-                this.user.name = user.auth.displayName;
-                this.user.img = user.auth.photoURL;
                 this.user.id = user.auth.uid;
-                this.user.email = user.auth.email;
+
+                this.userInfoSet = this.af.database.list(`/people/${user.auth.uid}`, { preserveSnapshot: true })
+                this.userInfoSet.subscribe(snapshots => {
+                    snapshots.forEach(snapshot => {
+                        if (snapshot.key == 'user') {
+                            this.user.name = snapshot.val();
+                        }
+                        if (snapshot.key == 'img') {
+                            this.user.img = snapshot.val();
+                        }
+                    });
+                });
             }
             else {
                 this.user = {uid: ''};

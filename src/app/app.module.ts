@@ -6,7 +6,7 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { Routes, RouterModule } from '@angular/router';
 import { EmojiModule } from 'angular2-emoji';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { LoginService } from './services/login.service';
+import { LoginService } from './services/login.service';
 import { NoAuthGuard } from './services/no-auth-guard.service';
 
 
@@ -19,6 +19,7 @@ import { PersonComponent } from './pages/person/person.component';
 import { PrivatComponent } from './pages/privat/privat.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { SettingComponent } from './pages/setting/setting.component';
+import { RegistrationComponent } from './pages/registration/registration.component';
 
 
 const appRoutes: Routes =[
@@ -29,6 +30,7 @@ const appRoutes: Routes =[
     { path: 'privat/:id', component: PrivatComponent },
     { path: 'messages', component: MessagesComponent },
     { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard]},
+    { path: 'registration', component: RegistrationComponent, canActivate: [NoAuthGuard]},
     { path: 'setting', component: SettingComponent },
     { path: '**', redirectTo: '' }
 ];
@@ -51,6 +53,7 @@ const firebaseConfig = {
     PrivatComponent,
     MessagesComponent,
     SettingComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,7 @@ const firebaseConfig = {
     }),
     NgbModule.forRoot()
   ],
-  providers: [NoAuthGuard],
+  providers: [NoAuthGuard, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

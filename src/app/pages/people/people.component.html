@@ -10,9 +10,10 @@
                 <span (click)="routPerson(person?.$key)">{{ person?.user }}</span>
             </div>
             <div class="person-provider">
-                <img *ngIf=" person?.providerId == 'google.com' || person?.email" src="../../../assets/img/auth_service_google.svg" alt="">
+                <img *ngIf=" person?.providerId == 'google.com' || person?.email && !(person?.providerId == 'password')" src="../../../assets/img/auth_service_google.svg" alt="">
                 <img *ngIf=" person?.providerId == 'facebook.com' " src="../../../assets/img/auth_service_facebook.svg" alt="">
                 <img *ngIf=" person?.providerId == 'github.com' " src="../../../assets/img/auth_service_github.svg" alt="">
+                <img *ngIf=" person?.providerId == 'password' " src="../../../assets/img/auth_service_email.svg" alt="">
             </div>
             <a class="person-btn" (click)="massagePerson(person?.$key)" *ngIf="userId != person?.$key">Написати</a>
         </div>

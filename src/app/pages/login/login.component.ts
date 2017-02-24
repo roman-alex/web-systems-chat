@@ -9,17 +9,17 @@ import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 })
 export class LoginComponent {
 
-    // userEmail: string = '';
-    // userPassword: string = '';
+    user = <any>{};
+    valid: boolean = false;
 
     constructor(private router: Router, public af: AngularFire) {}
 
     loginGoogle() {
-      this.af.auth.login({
+        this.af.auth.login({
           provider: AuthProviders.Google,
           method: AuthMethods.Redirect
-      });
-      this.router.navigate(['/']);
+        });
+        this.router.navigate(['/']);
     }
 
     loginFacebook() {
@@ -36,18 +36,19 @@ export class LoginComponent {
         });
         this.router.navigate(['/']);
     }
-    // loginPassword() {
-    //     if ( this.userEmail != '' && this.userPassword != '' ) {
-    //         this.af.auth.login({
-    //             email: this.userEmail,
-    //             password: this.userPassword
-    //         },
-    //         {
-    //             provider: AuthProviders.Password,
-    //             method: AuthMethods.Password
-    //         });
-    //     } else {
-    //         alert('error');
-    //     }
-    // }
+    loginPassword() {
+        if ( this.user.email && this.user.password ) {
+            this.af.auth.login({
+                email: this.user.email,
+                password: this.user.password
+            },
+            {
+                provider: AuthProviders.Password,
+                method: AuthMethods.Password
+            });
+            this.router.navigate(['/']);
+        } else {
+            this.valid = true;
+        }
+    }
 }

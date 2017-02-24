@@ -20,17 +20,16 @@ export class PrivatComponent implements OnInit, AfterViewChecked {
     itemInterlocutorChatDate: FirebaseObjectObservable<any>;
     itemChatDate: FirebaseObjectObservable<any>;
     items: FirebaseListObservable<any>;
+    userInfoSet: FirebaseListObservable<any>;
     newMessage: string = '';
     user = <any>{};
     itemInfoUser: string = '';
     itemInfoImg: string = '';
     storageRef: any;
-    // storage: any;
 
     constructor(@Inject(FirebaseApp) firebaseApp: any, private activateRoute: ActivatedRoute, public router: Router, public af: AngularFire) {
         this.subscription = activateRoute.params.subscribe(params=>this.id=params['id']);
 
-        // this.storage = firebaseApp.storage();
         this.storageRef = firebaseApp.storage().ref();
     }
 
@@ -41,10 +40,19 @@ export class PrivatComponent implements OnInit, AfterViewChecked {
     ngOnInit() {
         this.af.auth.subscribe(user => {
           if(user) {
-            this.user.name = user.auth.displayName;
-            this.user.img = user.auth.photoURL;
             this.user.id = user.auth.uid;
-            this.user.email = user.auth.email;
+
+            this.userInfoSet = this.af.database.list(`/people/${user.auth.uid}`, { preserveSnapshot: true })
+            this.userInfoSet.subscribe(snapshots => {
+                snapshots.forEach(snapshot => {
+                    if (snapshot.key == 'user') {
+                        this.user.name = snapshot.val();
+                    }
+                    if (snapshot.key == 'img') {
+                        this.user.img = snapshot.val();
+                    }
+                });
+            });
 
             this.itemChatDate = this.af.database.object(`/people/${this.user.id}/privatChats/${this.id}`);
             this.itemInterlocutorChatDate = this.af.database.object(`/people/${this.id}/privatChats/${this.user.id}`);

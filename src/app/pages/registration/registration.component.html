@@ -1,0 +1,36 @@
+<div class="login-container">
+    <h2>Реєстрація</h2>
+    <div class="form-group">
+        <input type="text" [(ngModel)]="user.user" class="form-control" placeholder="Прізвище та ім'я">
+    </div>
+    <div class="form-group">
+        <input type="text" [(ngModel)]="user.email" class="form-control" placeholder="Email">
+    </div>
+    <div class="form-group">
+        <input type="text" [(ngModel)]="user.telSet" class="form-control" placeholder="Телефон">
+    </div>
+    <div class="form-group">
+        <input type="text" [(ngModel)]="user.birthSet" class="form-control" placeholder="Дата народження">
+    </div>
+    <div class="form-group">
+        <input type="text" [(ngModel)]="user.townSet" class="form-control" placeholder="Місто">
+    </div>
+    <div class="form-group">
+        <input type="text" [(ngModel)]="user.workSet" class="form-control" placeholder="Місце роботи">
+    </div>
+    <div class="form-group">
+        <input type="text" [(ngModel)]="user.stadySet" class="form-control" placeholder="ВНЗ">
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" [(ngModel)]="user.password" placeholder="Пароль (не меньше 6-ти символів)">
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="valid">
+          Потрібно більше інформації
+    </div>
+    <div class="form-group">
+        <button type="button" (click)="createUser()" class="btn btn-primary btn-block">Реєстрація</button>
+    </div>
+    <div class="form-group">
+        <a routerLink="/login" class="btn btn-secondary btn-block">Логін</a>
+    </div>
+</div>
