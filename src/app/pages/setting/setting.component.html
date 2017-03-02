@@ -7,7 +7,7 @@
                   <div class="lable-info">Моб. телефон:</div>
                   <div class="text-inform">
                       <div class="form-group">
-                        <input type="text" [(ngModel)]="user.telSet" class="form-control" placeholder="{{(person | async)?.telSet || ''}}">
+                        <input type="text"  class="form-control" #telSet [value]="(person | async)?.telSet || ''" >
                       </div>
                   </div>
               </div>
@@ -15,7 +15,7 @@
                   <div class="lable-info">Email:</div>
                   <div class="text-inform">
                       <div class="form-group">
-                        <input type="text" class="form-control" [(ngModel)]="user.emailSet" placeholder="{{(person | async)?.emailSet || (person | async)?.email || ''}}">
+                        <input type="text" class="form-control" #emailSet [value]="(person | async)?.emailSet || (person | async)?.email || ''">
                       </div>
                   </div>
               </div>
@@ -23,7 +23,7 @@
                   <div class="lable-info">День народження:</div>
                   <div class="text-inform">
                       <div class="form-group">
-                        <input type="text" [(ngModel)]="user.birthSet" class="form-control" placeholder="{{(person | async)?.birthSet || ''}}">
+                        <input type="text" class="form-control" #birthSet [value]="(person | async)?.birthSet || ''">
                       </div>
                   </div>
               </div>
@@ -31,7 +31,7 @@
                   <div class="lable-info">Місто:</div>
                   <div class="text-inform">
                       <div class="form-group">
-                        <input type="text" [(ngModel)]="user.townSet" class="form-control" placeholder="{{(person | async)?.townSet || ''}}">
+                        <input type="text" class="form-control" #townSet [value]="(person | async)?.townSet || ''">
                       </div>
                   </div>
               </div>
@@ -39,7 +39,7 @@
                   <div class="lable-info">Місце роботи:</div>
                   <div class="text-inform">
                       <div class="form-group">
-                        <input type="text" [(ngModel)]="user.workSet" class="form-control" placeholder="{{(person | async)?.workSet || ''}}">
+                        <input type="text" class="form-control" #workSet [value]="(person | async)?.workSet || ''">
                       </div>
                   </div>
               </div>
@@ -47,7 +47,7 @@
                   <div class="lable-info">ВНЗ:</div>
                   <div class="text-inform">
                       <div class="form-group">
-                        <input type="text" [(ngModel)]="user.stadySet" class="form-control" placeholder="{{(person | async)?.stadySet || ''}}">
+                        <input type="text" class="form-control" #stadySet [value]="(person | async)?.stadySet || ''">
                       </div>
                   </div>
               </div>

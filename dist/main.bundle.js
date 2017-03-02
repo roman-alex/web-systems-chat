@@ -64952,37 +64952,39 @@ var SettingComponent = (function () {
         });
     };
     SettingComponent.prototype.settingSet = function () {
-        if (this.user.emailSet) {
-            this.person.update({
-                emailSet: this.user.emailSet
-            });
-        }
-        if (this.user.telSet) {
-            this.person.update({
-                telSet: this.user.telSet
-            });
-        }
-        if (this.user.birthSet) {
-            this.person.update({
-                birthSet: this.user.birthSet
-            });
-        }
-        if (this.user.townSet) {
-            this.person.update({
-                townSet: this.user.townSet
-            });
-        }
-        if (this.user.workSet) {
-            this.person.update({
-                workSet: this.user.workSet
-            });
-        }
-        if (this.user.stadySet) {
-            this.person.update({
-                stadySet: this.user.stadySet
-            });
-        }
+        this.person.update({
+            telSet: this.telSet.nativeElement.value,
+            emailSet: this.emailSet.nativeElement.value,
+            birthSet: this.birthSet.nativeElement.value,
+            townSet: this.townSet.nativeElement.value,
+            workSet: this.workSet.nativeElement.value,
+            stadySet: this.stadySet.nativeElement.value
+        });
     };
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_26" /* ViewChild */])("telSet"), 
+        __metadata('design:type', Object)
+    ], SettingComponent.prototype, "telSet", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_26" /* ViewChild */])("emailSet"), 
+        __metadata('design:type', Object)
+    ], SettingComponent.prototype, "emailSet", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_26" /* ViewChild */])("birthSet"), 
+        __metadata('design:type', Object)
+    ], SettingComponent.prototype, "birthSet", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_26" /* ViewChild */])("townSet"), 
+        __metadata('design:type', Object)
+    ], SettingComponent.prototype, "townSet", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_26" /* ViewChild */])("workSet"), 
+        __metadata('design:type', Object)
+    ], SettingComponent.prototype, "workSet", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_26" /* ViewChild */])("stadySet"), 
+        __metadata('design:type', Object)
+    ], SettingComponent.prototype, "stadySet", void 0);
     SettingComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
             selector: 'setting',
@@ -76511,7 +76513,7 @@ module.exports = ":host {\n    text-align: center;\n    min-height: calc(100vh -
 /* 761 */
 /***/ function(module, exports) {
 
-module.exports = "<div>\n    <div class=\"version\">v0.1.0</div>\n    <nav>\n        <!-- <a routerLink=\"/\" class=\"logo\"></a> -->\n        <ul *ngIf=\"(af.auth | async)\">\n            <li><a routerLink=\"/\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact:true}\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i></a></li>\n            <li><a routerLink=\"/people\" routerLinkActive=\"active\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i></a></li>\n            <li>\n                <a routerLink=\"/messages\" routerLinkActive=\"active\">\n                    <i class=\"fa fa-envelope\" aria-hidden=\"true\"></i>\n                    <div *ngIf=\"countMessage != 0\" class=\"count-message\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i></div>\n                </a>\n            </li>\n            <li><a routerLink=\"/chat\" routerLinkActive=\"active\"><i class=\"fa fa-comments\" aria-hidden=\"true\"></i></a></li>\n            <li><a routerLink=\"/login\" routerLinkActive=\"active\" (click)=\"logout()\"><i class=\"fa fa-sign-out\" aria-hidden=\"true\"></i></a></li>\n        </ul>\n    </nav>\n    <router-outlet></router-outlet>\n    <audio #audio>\n        <source src=\"../assets/mp3/vk.mp3\" type=\"audio/mpeg\">\n        <source src=\"../assets/mp3/vk.ogg\" type=\"audio/ogg\">\n    </audio>\n</div>\n"
+module.exports = "<div>\n    <div class=\"version\">v0.1.1</div>\n    <nav>\n        <!-- <a routerLink=\"/\" class=\"logo\"></a> -->\n        <ul *ngIf=\"(af.auth | async)\">\n            <li><a routerLink=\"/\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact:true}\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i></a></li>\n            <li><a routerLink=\"/people\" routerLinkActive=\"active\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i></a></li>\n            <li>\n                <a routerLink=\"/messages\" routerLinkActive=\"active\">\n                    <i class=\"fa fa-envelope\" aria-hidden=\"true\"></i>\n                    <div *ngIf=\"countMessage != 0\" class=\"count-message\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i></div>\n                </a>\n            </li>\n            <li><a routerLink=\"/chat\" routerLinkActive=\"active\"><i class=\"fa fa-comments\" aria-hidden=\"true\"></i></a></li>\n            <li><a routerLink=\"/login\" routerLinkActive=\"active\" (click)=\"logout()\"><i class=\"fa fa-sign-out\" aria-hidden=\"true\"></i></a></li>\n        </ul>\n    </nav>\n    <router-outlet></router-outlet>\n    <audio #audio>\n        <source src=\"../assets/mp3/vk.mp3\" type=\"audio/mpeg\">\n        <source src=\"../assets/mp3/vk.ogg\" type=\"audio/ogg\">\n    </audio>\n</div>\n"
 
 /***/ },
 /* 762 */
@@ -76565,7 +76567,7 @@ module.exports = "<div class=\"login-container\">\n    <h2>Реєстрація<
 /* 770 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"container\" >\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n          <div class=\"list-group\">\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">Моб. телефон:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" [(ngModel)]=\"user.telSet\" class=\"form-control\" placeholder=\"{{(person | async)?.telSet || ''}}\">\n                      </div>\n                  </div>\n              </div>\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">Email:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.emailSet\" placeholder=\"{{(person | async)?.emailSet || (person | async)?.email || ''}}\">\n                      </div>\n                  </div>\n              </div>\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">День народження:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" [(ngModel)]=\"user.birthSet\" class=\"form-control\" placeholder=\"{{(person | async)?.birthSet || ''}}\">\n                      </div>\n                  </div>\n              </div>\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">Місто:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" [(ngModel)]=\"user.townSet\" class=\"form-control\" placeholder=\"{{(person | async)?.townSet || ''}}\">\n                      </div>\n                  </div>\n              </div>\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">Місце роботи:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" [(ngModel)]=\"user.workSet\" class=\"form-control\" placeholder=\"{{(person | async)?.workSet || ''}}\">\n                      </div>\n                  </div>\n              </div>\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">ВНЗ:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" [(ngModel)]=\"user.stadySet\" class=\"form-control\" placeholder=\"{{(person | async)?.stadySet || ''}}\">\n                      </div>\n                  </div>\n              </div>\n          </div>\n          <a class=\"btn setting-profile\" routerLink=\"/\" role=\"button\">Відмінити</a>\n          <a class=\"btn setting-profile\" routerLink=\"/\" (click)=\"settingSet()\" role=\"button\">Зберегти</a>\n      </div>\n    </div>\n</div>\n"
+module.exports = "\n<div class=\"container\" >\n    <div class=\"row\">\n      <div class=\"col-md-12\">\n          <div class=\"list-group\">\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">Моб. телефон:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\"  class=\"form-control\" #telSet [value]=\"(person | async)?.telSet || ''\" >\n                      </div>\n                  </div>\n              </div>\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">Email:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" class=\"form-control\" #emailSet [value]=\"(person | async)?.emailSet || (person | async)?.email || ''\">\n                      </div>\n                  </div>\n              </div>\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">День народження:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" class=\"form-control\" #birthSet [value]=\"(person | async)?.birthSet || ''\">\n                      </div>\n                  </div>\n              </div>\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">Місто:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" class=\"form-control\" #townSet [value]=\"(person | async)?.townSet || ''\">\n                      </div>\n                  </div>\n              </div>\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">Місце роботи:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" class=\"form-control\" #workSet [value]=\"(person | async)?.workSet || ''\">\n                      </div>\n                  </div>\n              </div>\n              <div class=\"list-group-item clearfix\">\n                  <div class=\"lable-info\">ВНЗ:</div>\n                  <div class=\"text-inform\">\n                      <div class=\"form-group\">\n                        <input type=\"text\" class=\"form-control\" #stadySet [value]=\"(person | async)?.stadySet || ''\">\n                      </div>\n                  </div>\n              </div>\n          </div>\n          <a class=\"btn setting-profile\" routerLink=\"/\" role=\"button\">Відмінити</a>\n          <a class=\"btn setting-profile\" routerLink=\"/\" (click)=\"settingSet()\" role=\"button\">Зберегти</a>\n      </div>\n    </div>\n</div>\n"
 
 /***/ },
 /* 771 */

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable} from 'angularfire2';
 
 @Component({
@@ -11,6 +11,13 @@ export class SettingComponent {
     person: FirebaseObjectObservable<any>;
     user = <any>{};
 
+    @ViewChild("telSet") telSet: any;
+    @ViewChild("emailSet") emailSet: any;
+    @ViewChild("birthSet") birthSet: any;
+    @ViewChild("townSet") townSet: any;
+    @ViewChild("workSet") workSet: any;
+    @ViewChild("stadySet") stadySet: any;
+
     constructor(public af: AngularFire) {}
 
     ngOnInit() {
@@ -22,35 +29,13 @@ export class SettingComponent {
     }
 
     settingSet() {
-        if ( this.user.emailSet) {
-            this.person.update({
-                emailSet: this.user.emailSet
-            });
-        }
-        if ( this.user.telSet) {
-            this.person.update({
-                telSet: this.user.telSet
-            });
-        }
-        if ( this.user.birthSet) {
-            this.person.update({
-                birthSet: this.user.birthSet
-            });
-        }
-        if ( this.user.townSet) {
-            this.person.update({
-                townSet: this.user.townSet
-            });
-        }
-        if ( this.user.workSet) {
-            this.person.update({
-                workSet: this.user.workSet
-            });
-        }
-        if ( this.user.stadySet) {
-            this.person.update({
-                stadySet: this.user.stadySet
-            });
-        }
+        this.person.update({
+            telSet: this.telSet.nativeElement.value,
+            emailSet: this.emailSet.nativeElement.value,
+            birthSet: this.birthSet.nativeElement.value,
+            townSet: this.townSet.nativeElement.value,
+            workSet: this.workSet.nativeElement.value,
+            stadySet: this.stadySet.nativeElement.value
+        });
     }
 }
